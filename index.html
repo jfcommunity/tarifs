@@ -91,7 +91,17 @@ h1 em { font-style: italic; font-weight: 300; }
 .trust { display: flex; flex-direction: column; gap: 22px; }
 .logos { display: flex; flex-wrap: wrap; align-items: center; gap: 22px 36px; }
 .logos img { display: block; width: auto; opacity: .85; }
-@media (max-width: 700px) { .logos { gap: 20px 32px; } }
+@media (max-width: 700px) {
+  .logos { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--line); }
+  .logos img { justify-self: center; align-self: center; width: auto; max-width: 78%; margin: 22px 0; }
+  .logos img:nth-child(1) { grid-column: 1 / -1; height: 48px; }
+  .logos img:nth-child(2) { height: 14px; }
+  .logos img:nth-child(3) { height: 36px; }
+  .logos img:nth-child(4) { height: 17px; }
+  .logos img:nth-child(5) { height: 18px; }
+  .logos img:nth-child(6) { height: 24px; }
+  .logos img:nth-child(7) { height: 22px; }
+}
 
 /* Parcours */
 .picker { display: flex; flex-direction: column; gap: 16px; }
