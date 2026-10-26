@@ -87,6 +87,12 @@ h1 em { font-style: italic; font-weight: 300; }
 .about-hi em { font-style: italic; }
 .about-text p:not(.about-hi) { color: var(--ink-soft); font-size: 1.0625rem; }
 
+/* Références */
+.trust { display: flex; flex-direction: column; gap: 22px; }
+.logos { display: flex; flex-wrap: wrap; align-items: center; gap: 22px 36px; }
+.logos img { display: block; width: auto; opacity: .85; }
+@media (max-width: 700px) { .logos { gap: 20px 32px; } }
+
 /* Parcours */
 .picker { display: flex; flex-direction: column; gap: 16px; }
 .seg { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -285,6 +291,19 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
       <p class="about-hi">Bonjour, moi c’est <em>Juliette</em>, community manager freelance depuis 7 ans.</p>
       <p>J’aide des marques et des entrepreneurs à développer leur visibilité sur Instagram et LinkedIn.</p>
       <p>Installée à Barcelone, je travaille avec des clients partout en France et ailleurs.</p>
+    </div>
+  </section>
+
+  <section class="trust" aria-label="Ils m’ont fait confiance">
+    <p class="eyebrow">Ils m’ont fait confiance</p>
+    <div class="logos">
+      <img src="logos/paradis.png" alt="Paradis des sens" width="177" height="54" loading="lazy">
+      <img src="logos/nay.png" alt="Nay Kitchen" width="154" height="18" loading="lazy">
+      <img src="logos/keig.png" alt="Keig Studio" width="76" height="44" loading="lazy">
+      <img src="logos/soraali.png" alt="Soraali" width="112" height="22" loading="lazy">
+      <img src="logos/sarah.png" alt="Sarah Hariz" width="169" height="24" loading="lazy">
+      <img src="logos/glash.png" alt="Glash" width="90" height="30" loading="lazy">
+      <img src="logos/respire.png" alt="Respire" width="96" height="28" loading="lazy">
     </div>
   </section>
 
