@@ -51,6 +51,22 @@ h1 em { font-style: italic; font-weight: 300; }
 .lead { max-width: 54ch; font-size: 1.125rem; color: var(--ink-soft); }
 .proof { font-size: 0.875rem; color: var(--ink-soft); border-top: 1px solid var(--line); padding-top: 16px; max-width: 60ch; }
 
+/* Soleil du haut de page */
+.hero { position: relative; }
+.hero > *:not(.hero-sun) { position: relative; z-index: 1; }
+.hero-sun { position: absolute; right: 0; top: 34px; width: clamp(140px, 26vw, 320px); color: var(--ink); pointer-events: none; z-index: 0; }
+.hero-sun svg { width: 100%; height: auto; display: block; overflow: visible; }
+@keyframes rise { from { transform: translateY(16px); } to { transform: none; } }
+.hero-sun .disc { animation: rise 1.6s cubic-bezier(.2,.7,.2,1) both; }
+
+/* Bouton de contact */
+.cta-row { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 20px; padding-top: 4px; }
+.cta { display: inline-flex; align-items: center; gap: 12px; background: var(--ink); color: var(--on-ink); font: 500 1.0625rem/1 var(--body); letter-spacing: 0.02em; text-decoration: none; border-radius: 999px; padding: 18px 30px; transition: transform .2s, box-shadow .2s; }
+.cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(4, 30, 70, .35); }
+.cta:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+.cta svg { width: 18px; height: 18px; flex: none; }
+.cta-note { font-size: 0.875rem; color: var(--ink-soft); max-width: 46ch; }
+
 /* Parcours */
 .picker { display: flex; flex-direction: column; gap: 16px; }
 .seg { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -98,10 +114,10 @@ h1 em { font-style: italic; font-weight: 300; }
   border: 1px solid var(--line);
   padding: 26px;
   cursor: pointer;
-  transition: background .25s, color .25s, border-color .25s;
+  transition: background .25s, color .25s, border-color .25s, transform .25s;
   min-width: 0;
 }
-.tier:hover { border-color: var(--ink); }
+.tier:hover { border-color: var(--ink); transform: translateY(-2px); }
 .tier .top { display: flex; justify-content: space-between; align-items: center; min-height: 30px; gap: 8px; }
 .tier .sun { width: 64px; height: 30px; display: block; flex: none; }
 .badge { font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500; border: 1px solid currentColor; border-radius: 999px; padding: 5px 12px; white-space: nowrap; }
@@ -209,11 +225,13 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
   .summary .totals .row { justify-content: flex-start; }
 }
 @media (max-width: 560px) {
+  .hero-sun { opacity: .5; top: 60px; width: 108px; }
+  .cta { width: 100%; justify-content: center; }
   .seg button { flex: 1 1 100%; }
   .wrap { gap: 52px; }
   .how li, .gloss li { grid-template-columns: minmax(0, 1fr); gap: 6px; }
 }
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } .tier:hover, .cta:hover { transform: none; } }
 </style>
 
 
@@ -221,6 +239,17 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
 <body>
 <main class="wrap">
   <header class="hero">
+    <div class="hero-sun" aria-hidden="true">
+      <svg viewBox="0 0 200 108" focusable="false">
+        <defs><clipPath id="hs"><rect x="-4" y="-4" width="208" height="104"/></clipPath></defs>
+        <g clip-path="url(#hs)" fill="none" stroke="currentColor">
+          <circle cx="100" cy="100" r="86" stroke-width="1" opacity=".35"/>
+          <circle cx="100" cy="100" r="60" stroke-width="1" opacity=".5"/>
+          <g class="disc"><circle cx="100" cy="100" r="32" fill="currentColor" stroke="none"/></g>
+        </g>
+        <line x1="0" y1="100" x2="200" y2="100" stroke="currentColor" stroke-width="1" opacity=".6"/>
+      </svg>
+    </div>
     <div class="brand">
       <span class="eyebrow">J.F Community · Juliette Farandou</span>
       <span class="eyebrow">Community management</span>
@@ -261,6 +290,12 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
         <div class="row"><span class="lab">Étape 1 · Une seule fois</span><span class="v" id="sel-once"></span></div>
         <div class="row m"><span class="lab">Étape 2 · Par mois</span><span class="v" id="sel-month"></span></div>
       </div>
+    </div>
+    <div class="cta-row">
+      <a class="cta" id="cta" href="https://wa.me/33646790597" target="_blank" rel="noopener">On en parle ?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <span class="cta-note">Un message WhatsApp s’ouvre avec la formule que vous avez choisie déjà indiquée. Réponse du lundi au vendredi.</span>
     </div>
   </section>
 
@@ -453,6 +488,7 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
     $("sel-sub").textContent = TIERS[tier].tag;
     $("sel-once").textContent = fmt(d.launch);
     $("sel-month").textContent = fmt(t.price);
+    $("cta").href = "https://wa.me/33646790597?text=" + encodeURIComponent("Bonjour Juliette, la formule " + TIERS[tier].name + " (" + d.label + ") m’intéresse. Pouvons-nous en parler ?");
 
     $("gloss-list").innerHTML = GLOSS.filter(function (g) { return has(g[2]); }).map(function (g) {
       return '<li><span class="t">' + g[0] + '</span><span class="d">' + g[1] + '</span></li>';
