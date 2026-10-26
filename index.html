@@ -76,6 +76,13 @@ h1 em { font-style: italic; font-weight: 300; }
 .card-cta small { font-size: 0.75rem; opacity: .85; }
 @keyframes pop { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
+/* Présentation */
+.about { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; align-items: center; border-top: 1px solid var(--line); padding-top: 40px; }
+.about-text { display: flex; flex-direction: column; gap: 14px; max-width: 56ch; }
+.about-hi { font-family: var(--display); font-weight: 300; font-size: clamp(1.75rem, 3.4vw, 2.5rem); line-height: 1.18; text-wrap: balance; }
+.about-hi em { font-style: italic; }
+.about-text p:not(.about-hi) { color: var(--ink-soft); font-size: 1.0625rem; }
+
 /* Parcours */
 .picker { display: flex; flex-direction: column; gap: 16px; }
 .seg { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -265,8 +272,16 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
     </div>
     <h1>Trois formules pour faire <em>rayonner</em> votre marque.</h1>
     <p class="lead">Choisissez vos réseaux, découvrez la première étape, puis votre rythme mensuel. Chaque mot est expliqué simplement dans les menus en bas de page.</p>
-    <p class="proof">Six ans de community management. Des comptes accompagnés de 1 000 à plus de 20 000 abonnés en deux ans.</p>
+    <p class="proof">Des comptes accompagnés de 1 000 à plus de 20 000 abonnés en deux ans.</p>
   </header>
+
+  <section class="about" aria-label="Présentation">
+    <div class="about-text">
+      <p class="about-hi">Bonjour, moi c’est <em>Juliette</em>, community manager freelance depuis 7 ans.</p>
+      <p>J’aide des marques et des entrepreneurs à développer leur visibilité sur Instagram et LinkedIn.</p>
+      <p>Installée à Barcelone, je travaille avec des clients partout en France et ailleurs.</p>
+    </div>
+  </section>
 
   <section class="picker" aria-labelledby="pick-strat">
     <span class="eyebrow" id="pick-strat">1. Pour commencer</span>
