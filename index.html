@@ -79,6 +79,10 @@ h1 em { font-style: italic; font-weight: 300; }
 /* Présentation */
 .about { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; align-items: center; border-top: 1px solid var(--line); padding-top: 40px; }
 .about-text { display: flex; flex-direction: column; gap: 14px; max-width: 56ch; }
+.about.has-photo { grid-template-columns: minmax(0, 260px) minmax(0, 1fr); gap: 48px; }
+.about-photo { margin: 0; border: 1px solid var(--ink); padding: 8px; }
+.about-photo img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+@media (max-width: 700px) { .about.has-photo { grid-template-columns: minmax(0, 1fr); gap: 24px; } .about-photo { max-width: 220px; } }
 .about-hi { font-family: var(--display); font-weight: 300; font-size: clamp(1.75rem, 3.4vw, 2.5rem); line-height: 1.18; text-wrap: balance; }
 .about-hi em { font-style: italic; }
 .about-text p:not(.about-hi) { color: var(--ink-soft); font-size: 1.0625rem; }
@@ -275,7 +279,8 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
     <p class="proof">Des comptes accompagnés de 1 000 à plus de 20 000 abonnés en deux ans.</p>
   </header>
 
-  <section class="about" aria-label="Présentation">
+  <section class="about has-photo" aria-label="Présentation">
+    <figure class="about-photo"><img src="juliette.jpg" width="640" height="800" alt="Juliette, community manager freelance, au bord de la mer à Barcelone" loading="lazy"></figure>
     <div class="about-text">
       <p class="about-hi">Bonjour, moi c’est <em>Juliette</em>, community manager freelance depuis 7 ans.</p>
       <p>J’aide des marques et des entrepreneurs à développer leur visibilité sur Instagram et LinkedIn.</p>
