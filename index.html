@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<title>Aube Midi Zénith</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap">
+<style>
+/* Layout: un parcours en trois questions (réseaux, stratégie de départ, formule mensuelle), puis des menus dépliables pour tout le reste, puis le contact. */
+:root {
+  --bg: #0C51A3;
+  --ink: #FDECAD;
+  --ink-soft: rgba(253, 236, 173, 0.8);
+  --line: rgba(253, 236, 173, 0.32);
+  --wash: rgba(253, 236, 173, 0.08);
+  --bg-grad: linear-gradient(180deg, #1868BD 0%, #0C51A3 42%, #083F80 100%);
+  --on-ink: #0C51A3;
+  --display: "Cormorant Garamond", "Cormorant", Georgia, "Times New Roman", serif;
+  --body: "Jost", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background-color: var(--bg);
+  background-image: var(--bg-grad);
+  color: var(--ink);
+  font-family: var(--body);
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.6;
+  padding-inline: clamp(16px, 4vw, 48px);
+  padding-block: 40px 64px;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 1120px; margin-inline: auto; display: flex; flex-direction: column; gap: 64px; }
+h1, h2, h3, p, ul, dl, dd { margin: 0; }
+h1, h2, h3 { text-wrap: balance; font-family: var(--display); font-weight: 300; line-height: 1.08; }
+a { color: var(--ink); text-underline-offset: 4px; }
+.eyebrow { font-size: 0.75rem; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 400; color: var(--ink-soft); }
+button:focus-visible, a:focus-visible, .tier:focus-visible, summary:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+/* Hero */
+.hero { display: flex; flex-direction: column; gap: 28px; }
+.brand { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+h1 { font-size: clamp(2.5rem, 6.4vw, 4.75rem); max-width: 16ch; }
+h1 em { font-style: italic; font-weight: 300; }
+.lead { max-width: 54ch; font-size: 1.125rem; color: var(--ink-soft); }
+.proof { font-size: 0.875rem; color: var(--ink-soft); border-top: 1px solid var(--line); padding-top: 16px; max-width: 60ch; }
+
+/* Parcours */
+.picker { display: flex; flex-direction: column; gap: 16px; }
+.seg { display: flex; flex-wrap: wrap; gap: 10px; }
+.seg button {
+  font: 400 0.9375rem/1 var(--body); letter-spacing: 0.04em;
+  color: var(--ink); background: transparent;
+  border: 1px solid var(--line); border-radius: 999px;
+  padding: 14px 24px; cursor: pointer;
+  transition: background .2s, color .2s, border-color .2s;
+}
+.seg button:hover { border-color: var(--ink); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
+.hint { font-size: 0.875rem; color: var(--ink-soft); max-width: 70ch; }
+
+/* Stratégie de départ */
+.strat { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 40px; border: 1px solid var(--ink); background: var(--wash); padding: 36px; }
+.strat-main { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.strat h2 { font-size: clamp(2rem, 4vw, 3rem); }
+.strat-main p { color: var(--ink-soft); max-width: 44ch; }
+.facts { display: flex; flex-wrap: wrap; gap: 12px 36px; border-top: 1px solid var(--line); padding-top: 18px; }
+.fact { display: flex; flex-direction: column; gap: 2px; }
+.fact .lab { font-size: 0.6875rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); }
+.fact .big { font-family: var(--display); font-size: 2.5rem; line-height: 1.05; font-variant-numeric: tabular-nums lining-nums; }
+.fact small { font-size: 0.8125rem; color: var(--ink-soft); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-size: 0.8125rem; border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; color: var(--ink-soft); }
+.chip.on { background: var(--ink); color: var(--on-ink); border-color: var(--ink); font-weight: 500; }
+.strat-list { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+.group .eyebrow { display: block; margin-bottom: 8px; }
+.group ul { list-style: none; padding: 0; border-top: 1px solid var(--line); }
+.group li { padding: 12px 0; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 2px; }
+.group li .t { font-family: var(--display); font-style: italic; font-size: 1.4rem; line-height: 1.2; }
+.group li .sm { color: var(--ink-soft); font-size: 0.875rem; }
+
+/* Réseaux + formules */
+.zone { display: flex; flex-direction: column; gap: 36px; }
+.tagnet { font-family: var(--body); font-style: normal; font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin-left: 8px; white-space: nowrap; vertical-align: middle; }
+.group li { transition: opacity .2s; }
+.group li.dim { opacity: .4; }
+
+/* Formules */
+.tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.tier {
+  display: flex; flex-direction: column; gap: 20px;
+  border: 1px solid var(--line);
+  padding: 26px;
+  cursor: pointer;
+  transition: background .25s, color .25s, border-color .25s;
+  min-width: 0;
+}
+.tier:hover { border-color: var(--ink); }
+.tier .top { display: flex; justify-content: space-between; align-items: center; min-height: 30px; gap: 8px; }
+.tier .sun { width: 64px; height: 30px; display: block; flex: none; }
+.badge { font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500; border: 1px solid currentColor; border-radius: 999px; padding: 5px 12px; white-space: nowrap; }
+.tier h3 { font-size: 2.25rem; font-style: italic; }
+.tier .tag { font-size: 1rem; line-height: 1.45; }
+.tier .for { color: var(--ink-soft); font-size: 0.875rem; line-height: 1.5; }
+.tier .for b { font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; font-size: 0.6875rem; display: block; margin-bottom: 2px; }
+.price { display: flex; align-items: baseline; gap: 8px; font-family: var(--display); font-weight: 300; }
+.price .amt { font-size: 3.75rem; line-height: 1; font-variant-numeric: tabular-nums lining-nums; }
+.price .per { font-family: var(--body); font-size: 0.875rem; color: var(--ink-soft); letter-spacing: 0.04em; }
+.tier ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid var(--line); padding-top: 20px; flex: 1; }
+.tier li { display: grid; grid-template-columns: 14px minmax(0, 1fr); gap: 10px; font-size: 0.9688rem; line-height: 1.45; }
+.tier li::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: currentColor; margin-top: 0.55em; }
+.tier li b { font-weight: 500; font-size: 1.0625rem; }
+.tier li.off { opacity: .6; }
+.tier li.off::before { content: "–"; width: auto; height: auto; background: none; border-radius: 0; margin-top: 0; line-height: 1.45; }
+.tier .choose {
+  font: 400 0.875rem/1 var(--body); letter-spacing: 0.08em; text-transform: uppercase;
+  color: inherit; background: transparent; border: 1px solid currentColor; border-radius: 999px;
+  padding: 14px 20px; cursor: pointer;
+}
+.tier[aria-selected="true"] { background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
+.tier[aria-selected="true"] .for, .tier[aria-selected="true"] .per { color: var(--on-ink); opacity: .85; }
+.tier[aria-selected="true"] ul { border-color: rgba(12, 81, 163, .3); }
+.tier[aria-selected="true"] .choose { background: var(--on-ink); color: var(--ink); border-color: var(--on-ink); }
+.tier[aria-selected="true"] button:focus-visible, .tier[aria-selected="true"]:focus-visible { outline-color: var(--on-ink); }
+.legend { font-size: 0.8125rem; color: var(--ink-soft); max-width: 78ch; }
+.legend b { font-weight: 500; color: var(--ink); }
+
+/* Récapitulatif */
+.summary { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: end; border-top: 1px solid var(--ink); padding-top: 24px; }
+.summary .what { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.summary .what strong { font-family: var(--display); font-weight: 300; font-size: clamp(1.6rem, 3.2vw, 2.25rem); line-height: 1.15; }
+.summary .sub { color: var(--ink-soft); font-size: 0.9375rem; }
+.summary .totals { text-align: right; display: flex; flex-direction: column; gap: 6px; }
+.summary .totals .row { display: flex; justify-content: flex-end; align-items: baseline; gap: 14px; }
+.summary .totals .lab { font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); }
+.summary .totals .v { font-family: var(--display); font-size: 2rem; line-height: 1.1; font-variant-numeric: tabular-nums lining-nums; }
+.summary .totals .m .v { font-size: 2.5rem; }
+
+/* Menus dépliables */
+.learn { display: flex; flex-direction: column; gap: 24px; }
+.learn > h2 { font-size: clamp(2rem, 4vw, 3rem); }
+.accs { border-bottom: 1px solid var(--line); }
+details.acc { border-top: 1px solid var(--line); }
+details.acc summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 26px 0; }
+details.acc summary::-webkit-details-marker { display: none; }
+details.acc summary:hover .st h3 { font-style: italic; }
+.st { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.st h3 { font-size: clamp(1.5rem, 3vw, 2.125rem); }
+.st span { color: var(--ink-soft); font-size: 0.9375rem; }
+.plus { position: relative; width: 44px; height: 44px; flex: none; border: 1px solid var(--line); border-radius: 50%; transition: border-color .2s, background .2s; }
+details.acc summary:hover .plus { border-color: var(--ink); }
+.plus::before, .plus::after { content: ""; position: absolute; left: 50%; top: 50%; background: var(--ink); transform: translate(-50%, -50%); }
+.plus::before { width: 14px; height: 1px; }
+.plus::after { width: 1px; height: 14px; transition: opacity .2s; }
+details.acc[open] .plus { background: var(--ink); }
+details.acc[open] .plus::before { background: var(--on-ink); }
+details.acc[open] .plus::after { opacity: 0; }
+.acc-body { padding-bottom: 32px; }
+
+.rows { list-style: none; padding: 0; border-top: 1px solid var(--line); min-width: 0; }
+.rows li { display: flex; justify-content: space-between; gap: 24px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.rows:last-child li:last-child { border-bottom: 0; }
+.rows li > span:first-child { min-width: 0; }
+.rows .sm { display: block; color: var(--ink-soft); font-size: 0.875rem; }
+.rows .val { font-family: var(--display); font-size: 1.5rem; white-space: nowrap; font-variant-numeric: tabular-nums lining-nums; }
+.rows .t { font-family: var(--display); font-style: italic; font-size: 1.5rem; line-height: 1.2; display: block; }
+.how li { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 24px; }
+.how .k { font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); padding-top: 4px; }
+.how .body { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.gloss li { display: grid; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.6fr); gap: 24px; }
+.gloss .d { font-size: 1rem; color: var(--ink-soft); }
+.steps { counter-reset: s; }
+.steps li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 8px; }
+.steps li::before { counter-increment: s; content: counter(s); font-family: var(--display); font-style: italic; font-size: 1.75rem; line-height: 1.2; }
+
+/* Contact */
+.section { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 40px; }
+.section h2 { font-size: clamp(2rem, 4vw, 3rem); }
+.section .intro { display: flex; flex-direction: column; gap: 16px; align-content: start; min-width: 0; }
+.section .intro p { color: var(--ink-soft); max-width: 42ch; }
+.contact li { align-items: center; }
+.contact .lab { font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); display: block; }
+.contact .v { font-family: var(--display); font-size: 1.5rem; line-height: 1.25; overflow-wrap: anywhere; }
+.copy {
+  font: 400 0.75rem/1 var(--body); letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 999px;
+  padding: 10px 16px; cursor: pointer; flex: none;
+}
+.copy:hover { border-color: var(--ink); }
+
+footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; border-top: 1px solid var(--line); padding-top: 20px; font-size: 0.8125rem; color: var(--ink-soft); }
+
+@media (min-width: 881px) {
+  .tier .tag { min-height: 2.9em; }
+  .tier .for { min-height: 4.8em; }
+}
+@media (max-width: 880px) {
+  .tiers { grid-template-columns: minmax(0, 1fr); }
+  .strat { grid-template-columns: minmax(0, 1fr); gap: 28px; padding: 24px; }
+  .section { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .summary { grid-template-columns: minmax(0, 1fr); }
+  .summary .totals { text-align: left; }
+  .summary .totals .row { justify-content: flex-start; }
+}
+@media (max-width: 560px) {
+  .seg button { flex: 1 1 100%; }
+  .wrap { gap: 52px; }
+  .how li, .gloss li { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+
+</head>
+<body>
+<main class="wrap">
+  <header class="hero">
+    <div class="brand">
+      <span class="eyebrow">J.F Community · Juliette Farandou</span>
+      <span class="eyebrow">Community management</span>
+    </div>
+    <h1>Trois formules pour faire <em>rayonner</em> votre marque.</h1>
+    <p class="lead">Choisissez vos réseaux, découvrez la première étape, puis votre rythme mensuel. Chaque mot est expliqué simplement dans les menus en bas de page.</p>
+    <p class="proof">Six ans de community management. Des comptes accompagnés de 1 000 à plus de 20 000 abonnés en deux ans.</p>
+  </header>
+
+  <section class="picker" aria-labelledby="pick-strat">
+    <span class="eyebrow" id="pick-strat">1. Pour commencer</span>
+    <div class="strat" id="strat"></div>
+  </section>
+
+  <div class="zone">
+  <section class="picker" aria-labelledby="pick-net">
+    <span class="eyebrow" id="pick-net">2. Sur quels réseaux ?</span>
+    <div class="seg" id="net" role="group" aria-labelledby="pick-net">
+      <button type="button" data-net="ig" aria-pressed="false">Instagram</button>
+      <button type="button" data-net="li" aria-pressed="false">LinkedIn</button>
+      <button type="button" data-net="both" aria-pressed="true">Instagram + LinkedIn</button>
+    </div>
+    <p class="hint">Un seul réseau vous suffit ? Tout s’adapte : la stratégie, les formules et les prix.</p>
+  </section>
+
+
+  <section class="picker" aria-labelledby="pick-tier">
+    <span class="eyebrow" id="pick-tier">3. Puis, chaque mois : à quel rythme ?</span>
+    <div class="tiers" id="tiers" role="radiogroup" aria-labelledby="pick-tier"></div>
+    <p class="legend"><b>Les chiffres en gras</b> changent d’une formule à l’autre. Toutes les formules incluent aussi ce qui est détaillé dans le menu « Inclus dans toutes les formules », plus bas.</p>
+    <div class="summary" aria-live="polite">
+      <div class="what">
+        <span class="eyebrow">Votre sélection</span>
+        <strong id="sel-name"></strong>
+        <span class="sub" id="sel-sub"></span>
+      </div>
+      <div class="totals">
+        <div class="row"><span class="lab">Étape 1 · Une seule fois</span><span class="v" id="sel-once"></span></div>
+        <div class="row m"><span class="lab">Étape 2 · Par mois</span><span class="v" id="sel-month"></span></div>
+      </div>
+    </div>
+  </section>
+
+  </div>
+
+  <section class="learn" aria-labelledby="h-learn">
+    <span class="eyebrow">Tout comprendre</span>
+    <h2 id="h-learn">Vos questions, en un clic</h2>
+    <div class="accs">
+      <details class="acc">
+        <summary><span class="st"><h3>Inclus dans toutes les formules</h3><span>Calendrier, WhatsApp, réponses, rapport de fin de mois</span></span><span class="plus" aria-hidden="true"></span></summary>
+        <div class="acc-body">
+          <ul class="rows">
+            <li><span><span class="t">Un calendrier éditorial</span><span class="sm">Le planning de tous vos contenus du mois suivant, préparé sur Notion, avant le début du mois.</span></span></li>
+            <li><span><span class="t">Un contact direct</span><span class="sm">On échange sur WhatsApp du lundi au vendredi.</span></span></li>
+            <li><span><span class="t">Des réponses à votre communauté</span><span class="sm">Je réponds aux commentaires et messages simples, et je vous transmets les demandes de clients.</span></span></li>
+            <li><span><span class="t">Un rapport de fin de mois</span><span class="sm">Envoyé chaque mois : ce qui a bien marché, ce qui a moins marché, et ce qu’on ajuste pour le mois suivant. On en parle ensuite sur place à Barcelone, par téléphone ou en visio.</span></span></li>
+          </ul>
+        </div>
+      </details>
+      <details class="acc">
+        <summary><span class="st"><h3>Comment on travaille ensemble</h3><span>Vos contenus, nos échanges, le calendrier, le rapport</span></span><span class="plus" aria-hidden="true"></span></summary>
+        <div class="acc-body">
+          <ul class="rows how">
+            <li><span class="k">Les contenus</span><span class="body"><span class="t">Vous vivez à Barcelone</span><span class="sm">Je peux venir créer du contenu chez vous : photos, vidéos, coulisses. Une, deux ou trois heures par mois, en option.</span></span></li>
+            <li><span class="k">Les contenus</span><span class="body"><span class="t">Vous vivez ailleurs</span><span class="sm">En France ou à l’étranger, vous m’envoyez vos photos et vidéos. Je crée un dossier partagé sur Google Drive pour tout regrouper au même endroit.</span></span></li>
+            <li><span class="k">Les échanges</span><span class="body"><span class="t">WhatsApp, du lundi au vendredi</span><span class="sm">Une question, une idée, une actualité à publier : vous m’écrivez, je réponds.</span></span></li>
+            <li><span class="k">Le calendrier</span><span class="body"><span class="t">Sur Notion</span><span class="sm">Vous voyez à l’avance ce qui sera publié, et quand.</span></span></li>
+            <li><span class="k">Le rapport</span><span class="body"><span class="t">Chaque fin de mois</span><span class="sm">Vous recevez par écrit ce qui a marché et ce qui a moins marché. On en parle ensuite sur place à Barcelone, par téléphone ou en visio, selon ce qui vous arrange.</span></span></li>
+          </ul>
+        </div>
+      </details>
+      <details class="acc">
+        <summary><span class="st"><h3>Comment on démarre</h3><span>De notre premier échange à la première publication</span></span><span class="plus" aria-hidden="true"></span></summary>
+        <div class="acc-body">
+          <ul class="rows steps">
+            <li><span>Un échange pour comprendre votre activité, vos objectifs et le rythme qui vous convient.</span></li>
+            <li><span>Pendant environ 2 semaines, je construis votre stratégie de départ : audit, cibles, ligne éditoriale et plan par réseau.</span></li>
+            <li><span>Les publications démarrent, guidées par cette stratégie. Chaque mois, vous recevez un calendrier, puis un rapport de fin de mois (ce qui a marché, ce qui a moins marché) avec des recommandations.</span></li>
+          </ul>
+        </div>
+      </details>
+      <details class="acc">
+        <summary><span class="st"><h3>Le vocabulaire, expliqué simplement</h3><span>Publication, story, reel, engagement, veille…</span></span><span class="plus" aria-hidden="true"></span></summary>
+        <div class="acc-body"><ul class="rows gloss" id="gloss-list"></ul></div>
+      </details>
+      <details class="acc">
+        <summary><span class="st"><h3>Options à la carte</h3><span>Un contenu en plus, ou une création de contenu chez vous à Barcelone</span></span><span class="plus" aria-hidden="true"></span></summary>
+        <div class="acc-body"><ul class="rows" id="opt-list"></ul></div>
+      </details>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="h-contact">
+    <div class="intro">
+      <span class="eyebrow">Contact</span>
+      <h2 id="h-contact">Parlons de votre projet</h2>
+      <p>Un message suffit pour commencer. Je vous réponds du lundi au vendredi.</p>
+    </div>
+    <ul class="rows contact">
+      <li><span><span class="lab">Email</span><span class="v" id="mail-text">contact@jf-community.com</span></span><button type="button" class="copy" id="copy-mail">Copier</button></li>
+      <li><span><span class="lab">WhatsApp</span><a class="v" href="https://wa.me/33646790597" target="_blank" rel="noopener">+33 6 46 79 05 97</a></span></li>
+      <li><span><span class="lab">LinkedIn</span><a class="v" href="https://www.linkedin.com/in/juliette-farandou-512905260/" target="_blank" rel="noopener">Juliette Farandou</a></span></li>
+      <li><span><span class="lab">Instagram</span><a class="v" href="https://www.instagram.com/j.fcommunity/" target="_blank" rel="noopener">@j.fcommunity</a></span></li>
+    </ul>
+  </section>
+
+  <footer>
+    <span>J.F Community · Juliette Farandou</span>
+    <span>Devis personnalisé possible sur demande</span>
+  </footer>
+</main>
+
+<script>
+(function () {
+  var NETS = {
+    ig: {
+      label: "Instagram", launch: 250,
+      tiers: [
+        { price: 500, items: [["<b>4</b> publications par mois"], ["<b>3</b> stories par semaine"], ["<b>1</b> reel par mois"], ["Pas d’engagement actif", 1]] },
+        { price: 880, items: [["<b>6</b> publications par mois"], ["<b>5</b> stories par semaine"], ["<b>2</b> reels par mois"], ["Pas d’engagement actif", 1]] },
+        { price: 1500, items: [["<b>8</b> publications par mois"], ["<b>7</b> stories par semaine"], ["<b>4</b> reels par mois"], ["<b>2</b> séances d’engagement par semaine"], ["Veille mensuelle sur votre secteur"]] }
+      ],
+      options: [["Reel supplémentaire", "Tourné et monté", 160], ["Publication supplémentaire", "Visuel, légende et programmation", 60], ["Lot de 4 stories", "En plus de celles du mois", 40]]
+    },
+    li: {
+      label: "LinkedIn", launch: 250,
+      tiers: [
+        { price: 400, items: [["<b>4</b> posts par mois"], ["Pas d’engagement actif", 1], ["Pas de veille", 1]] },
+        { price: 750, items: [["<b>8</b> posts par mois, dont des carrousels"], ["<b>1</b> séance d’engagement par semaine"], ["Pas de veille", 1]] },
+        { price: 1200, items: [["<b>12</b> posts par mois, dont des carrousels"], ["<b>2</b> séances d’engagement par semaine"], ["Veille mensuelle sur votre secteur"]] }
+      ],
+      options: [["Post supplémentaire", "Rédaction, visuel et programmation", 60]]
+    },
+    both: {
+      label: "Instagram + LinkedIn", launch: 350,
+      tiers: [
+        { price: 850, items: [["<b>4</b> publications Instagram par mois"], ["<b>3</b> stories par semaine"], ["<b>4</b> posts LinkedIn par mois"], ["<b>1</b> reel par mois"], ["Pas d’engagement actif", 1]] },
+        { price: 1400, items: [["<b>6</b> publications Instagram par mois"], ["<b>5</b> stories par semaine"], ["<b>2</b> reels par mois"], ["<b>8</b> posts LinkedIn par mois, dont des carrousels"], ["<b>1</b> séance d’engagement par semaine sur LinkedIn"]] },
+        { price: 2200, items: [["<b>8</b> publications Instagram par mois"], ["<b>7</b> stories par semaine"], ["<b>4</b> reels par mois"], ["<b>8</b> posts LinkedIn par mois, dont des carrousels"], ["<b>2</b> séances d’engagement par semaine sur chaque réseau"], ["Veille mensuelle sur votre secteur"]] }
+      ],
+      options: [["Reel supplémentaire", "Tourné et monté", 160], ["Publication supplémentaire", "Instagram ou LinkedIn : visuel, texte et programmation", 60], ["Lot de 4 stories", "En plus de celles du mois", 40]]
+    }
+  };
+  var TIERS = [
+    { name: "Aube", sun: 26, tag: "Pour démarrer : une présence simple et régulière.", forWho: "Vous voulez lancer votre présence sur de bonnes bases." },
+    { name: "Midi", sun: 17, tag: "Pour progresser : plus de contenus et plus de visibilité.", forWho: "Vous voulez de vrais résultats sans y passer votre temps.", badge: "Ma recommandation" },
+    { name: "Zénith", sun: 9, tag: "Pour accélérer : une présence complète qui va chercher vos clients.", forWho: "Les réseaux sont un vrai levier de vente pour vous." }
+  ];
+  var STRAT_SOCLE = [
+    ["Audit de votre présence actuelle", "Je regarde ce qui existe déjà : profils, contenus, image de marque."],
+    ["Objectifs des trois premiers mois", "Ce que vous voulez obtenir concrètement."],
+    ["Identification de vos cibles", "Les personnes que vous voulez toucher."],
+    ["Ligne éditoriale", "Les grands thèmes, le ton et le style de vos contenus."]
+  ];
+  var STRAT_NET = [
+    ["Stratégie Instagram", "Le rôle d’Instagram pour votre marque et les contenus à y publier.", "ig both", "Instagram"],
+    ["Stratégie LinkedIn", "Comment vous faire connaître des professionnels sur LinkedIn.", "li both", "LinkedIn"],
+    ["Stratégie vidéo (reels)", "Les idées et formats de reels adaptés à votre activité.", "ig both", "Instagram"],
+    ["Stratégie d’engagement", "Les comptes à suivre et à contacter pour que votre marque se fasse remarquer.", "ig li both", "Chaque réseau"]
+  ];
+  var ONSITE = [["Création de contenu sur place, 1 heure", "À Barcelone, une fois par mois", 60], ["Création de contenu sur place, 2 heures", "À Barcelone, une fois par mois", 110], ["Création de contenu sur place, 3 heures", "À Barcelone, une fois par mois", 150]];
+  var GLOSS = [
+    ["Publication", "Une photo, un carrousel (plusieurs images à faire défiler) ou un texte posté sur votre compte. C’est votre vitrine : elle reste visible en permanence.", "ig both"],
+    ["Post LinkedIn", "Un texte, parfois accompagné d’une image ou d’un carrousel, publié sur LinkedIn. Il montre votre expertise aux professionnels.", "li both"],
+    ["Story", "Un contenu court qui disparaît au bout de 24 heures. Il permet d’être présent chaque semaine, de montrer les coulisses, de poser une question à votre communauté.", "ig both"],
+    ["Reel", "Une courte vidéo verticale. C’est le format qu’Instagram montre le plus à des personnes qui ne vous suivent pas encore.", "ig both"],
+    ["Séance d’engagement", "Au lieu d’attendre qu’on vous trouve, je vais commenter et échanger avec des comptes choisis : vos futurs clients, partenaires ou prescripteurs. Votre marque se fait remarquer.", "ig li both"],
+    ["Veille", "Chaque mois, je regarde ce qui marche dans votre secteur et ce que font les autres, pour adapter vos contenus.", "ig li both"],
+    ["Calendrier éditorial", "Le planning de vos publications du mois : quoi, quand, sur quel réseau. Vous savez toujours ce qui arrive.", "ig li both"],
+    ["Rapport de fin de mois", "Un document simple, envoyé chaque mois : combien de personnes ont vu vos contenus, ce qui a bien marché, ce qui a moins marché, et ce qu’on change pour le mois suivant.", "ig li both"]
+  ];
+
+  var net = "both", tier = 1;
+  var fmt = function (n) { return n.toLocaleString("fr-FR") + " €"; };
+  var $ = function (id) { return document.getElementById(id); };
+  var has = function (str) { return str.split(" ").indexOf(net) > -1; };
+
+  function sunSvg(cy) {
+    return '<svg class="sun" viewBox="0 0 64 30" aria-hidden="true" focusable="false">' +
+      '<defs><clipPath id="c' + cy + '"><rect x="0" y="0" width="64" height="26"/></clipPath></defs>' +
+      '<circle cx="32" cy="' + cy + '" r="8" fill="currentColor" clip-path="url(#c' + cy + ')"/>' +
+      '<line x1="2" y1="26" x2="62" y2="26" stroke="currentColor" stroke-width="1" opacity=".6"/></svg>';
+  }
+  function li(it) { return '<li><span class="t">' + it[0] + '</span><span class="sm">' + it[1] + '</span></li>'; }
+
+  function render() {
+    var d = NETS[net];
+    document.querySelectorAll("#net button").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.dataset.net === net));
+    });
+
+    var chips = ["ig", "li", "both"].map(function (k) {
+      return '<span class="chip' + (k === net ? ' on' : '') + '">' + NETS[k].label + ' · ' + NETS[k].launch + ' €</span>';
+    }).join("");
+    $("strat").innerHTML =
+      '<div class="strat-main">' +
+        '<span class="eyebrow">À part, en plus de la formule mensuelle</span>' +
+        '<h2>Votre stratégie de départ</h2>' +
+        '<p>C’est la première chose que l’on fait ensemble. Pendant deux semaines, je construis la stratégie qui guidera ensuite tous vos contenus : quoi dire, à qui, sur quel ton, et comment le faire vivre. Vous la recevez sous forme d’un document clair.</p>' +
+        '<div class="facts">' +
+          '<div class="fact"><span class="lab">Prix</span><span class="big">dès ' + fmt(NETS.ig.launch) + '</span><small>selon vos réseaux, payé une seule fois</small></div>' +
+          '<div class="fact"><span class="lab">Durée</span><span class="big">2 semaines</span><small>avant les premières publications</small></div>' +
+        '</div>' +
+        '<div class="chips" aria-label="Prix selon les réseaux">' + chips + '</div>' +
+      '</div>' +
+      '<div class="strat-list">' +
+        '<div class="group"><span class="eyebrow">Le socle</span><ul>' + STRAT_SOCLE.map(li).join("") + '</ul></div>' +
+        '<div class="group"><span class="eyebrow">Selon les réseaux choisis</span><ul>' + STRAT_NET.map(function (x) { return '<li class="' + (has(x[2]) ? '' : 'dim') + '"><span class="t">' + x[0] + '<span class="tagnet">' + x[3] + '</span></span><span class="sm">' + x[1] + '</span></li>'; }).join("") + '</ul></div>' +
+      '</div>';
+
+    $("tiers").innerHTML = d.tiers.map(function (t, i) {
+      var meta = TIERS[i];
+      var items = t.items.map(function (it) {
+        return '<li' + (it[1] ? ' class="off"' : '') + '><span>' + it[0] + '</span></li>';
+      }).join("");
+      return '<article class="tier" role="radio" tabindex="0" data-i="' + i + '" aria-checked="' + (i === tier) + '" aria-selected="' + (i === tier) + '" aria-label="' + meta.name + ', ' + t.price + ' euros par mois">' +
+        '<div class="top">' + sunSvg(meta.sun) + (meta.badge ? '<span class="badge">' + meta.badge + '</span>' : '') + '</div>' +
+        '<h3>' + meta.name + '</h3>' +
+        '<p class="tag">' + meta.tag + '</p>' +
+        '<p class="for"><b>Idéal si</b>' + meta.forWho + '</p>' +
+        '<p class="price"><span class="amt">' + t.price.toLocaleString("fr-FR") + '</span><span class="per">€ / mois</span></p>' +
+        '<ul>' + items + '</ul>' +
+        '<button type="button" class="choose" tabindex="-1">' + (i === tier ? "Formule choisie" : "Choisir " + meta.name) + '</button>' +
+        '</article>';
+    }).join("");
+
+    var t = d.tiers[tier];
+    $("sel-name").textContent = TIERS[tier].name + " · " + d.label;
+    $("sel-sub").textContent = TIERS[tier].tag;
+    $("sel-once").textContent = fmt(d.launch);
+    $("sel-month").textContent = fmt(t.price);
+
+    $("gloss-list").innerHTML = GLOSS.filter(function (g) { return has(g[2]); }).map(function (g) {
+      return '<li><span class="t">' + g[0] + '</span><span class="d">' + g[1] + '</span></li>';
+    }).join("");
+    $("opt-list").innerHTML = d.options.concat(ONSITE).map(function (o) {
+      return '<li><span>' + o[0] + '<span class="sm">' + o[1] + '</span></span><span class="val">' + fmt(o[2]) + '</span></li>';
+    }).join("");
+  }
+
+  $("net").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-net]");
+    if (b) { net = b.dataset.net; render(); }
+  });
+  var tiersEl = $("tiers");
+  function focusTier() { var n = tiersEl.querySelector('.tier[data-i="' + tier + '"]'); if (n) n.focus(); }
+  tiersEl.addEventListener("click", function (e) {
+    var a = e.target.closest(".tier");
+    if (a) { tier = Number(a.dataset.i); render(); }
+  });
+  tiersEl.addEventListener("keydown", function (e) {
+    var a = e.target.closest(".tier");
+    if ((e.key === "Enter" || e.key === " ") && a) { e.preventDefault(); tier = Number(a.dataset.i); render(); focusTier(); }
+    else if (e.key === "ArrowRight" || e.key === "ArrowDown") { e.preventDefault(); tier = Math.min(2, tier + 1); render(); focusTier(); }
+    else if (e.key === "ArrowLeft" || e.key === "ArrowUp") { e.preventDefault(); tier = Math.max(0, tier - 1); render(); focusTier(); }
+  });
+
+  $("copy-mail").addEventListener("click", function () {
+    var btn = this, txt = $("mail-text");
+    function done() { btn.textContent = "Copié"; setTimeout(function () { btn.textContent = "Copier"; }, 1800); }
+    function fallback() {
+      var r = document.createRange(); r.selectNodeContents(txt);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+    }
+    try {
+      navigator.clipboard.writeText(txt.textContent).then(done, fallback);
+    } catch (err) { fallback(); }
+  });
+
+  render();
+})();
+</script>
+
+</body>
+</html>
