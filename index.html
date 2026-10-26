@@ -67,6 +67,15 @@ h1 em { font-style: italic; font-weight: 300; }
 .cta svg { width: 18px; height: 18px; flex: none; }
 .cta-note { font-size: 0.875rem; color: var(--ink-soft); max-width: 46ch; }
 
+/* Bouton dans la carte choisie */
+.card-cta { display: flex; flex-direction: column; align-items: center; gap: 6px; animation: pop .45s cubic-bezier(.2,.7,.2,1) both; }
+.card-cta a { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; background: var(--on-ink); color: var(--ink); font: 500 1.0625rem/1 var(--body); letter-spacing: 0.02em; text-decoration: none; border-radius: 999px; padding: 18px 24px; transition: transform .2s, box-shadow .2s; }
+.card-cta a:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(4, 30, 70, .35); }
+.card-cta a:focus-visible { outline: 2px solid var(--on-ink); outline-offset: 4px; }
+.card-cta svg { width: 18px; height: 18px; flex: none; }
+.card-cta small { font-size: 0.75rem; opacity: .85; }
+@keyframes pop { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
 /* Parcours */
 .picker { display: flex; flex-direction: column; gap: 16px; }
 .seg { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -231,7 +240,7 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
   .wrap { gap: 52px; }
   .how li, .gloss li { grid-template-columns: minmax(0, 1fr); gap: 6px; }
 }
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } .tier:hover, .cta:hover { transform: none; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } .tier:hover, .cta:hover, .card-cta a:hover { transform: none; } }
 </style>
 
 
@@ -290,12 +299,6 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
         <div class="row"><span class="lab">Étape 1 · Une seule fois</span><span class="v" id="sel-once"></span></div>
         <div class="row m"><span class="lab">Étape 2 · Par mois</span><span class="v" id="sel-month"></span></div>
       </div>
-    </div>
-    <div class="cta-row">
-      <a class="cta" id="cta" href="https://wa.me/33646790597" target="_blank" rel="noopener">On en parle ?
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-      <span class="cta-note">Un message WhatsApp s’ouvre avec la formule que vous avez choisie déjà indiquée. Réponse du lundi au vendredi.</span>
     </div>
   </section>
 
@@ -480,6 +483,7 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
         '<p class="price"><span class="amt">' + t.price.toLocaleString("fr-FR") + '</span><span class="per">€ / mois</span></p>' +
         '<ul>' + items + '</ul>' +
         '<button type="button" class="choose" tabindex="-1">' + (i === tier ? "Formule choisie" : "Choisir " + meta.name) + '</button>' +
+        (i === tier ? '<div class="card-cta"><a href="https://wa.me/33646790597?text=' + encodeURIComponent("Bonjour Juliette, la formule " + meta.name + " (" + d.label + ") m’intéresse. Pouvons-nous en parler ?") + '" target="_blank" rel="noopener">On en parle ?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><small>Un message WhatsApp déjà prêt</small></div>' : '') +
         '</article>';
     }).join("");
 
@@ -488,7 +492,6 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
     $("sel-sub").textContent = TIERS[tier].tag;
     $("sel-once").textContent = fmt(d.launch);
     $("sel-month").textContent = fmt(t.price);
-    $("cta").href = "https://wa.me/33646790597?text=" + encodeURIComponent("Bonjour Juliette, la formule " + TIERS[tier].name + " (" + d.label + ") m’intéresse. Pouvons-nous en parler ?");
 
     $("gloss-list").innerHTML = GLOSS.filter(function (g) { return has(g[2]); }).map(function (g) {
       return '<li><span class="t">' + g[0] + '</span><span class="d">' + g[1] + '</span></li>';
@@ -505,11 +508,13 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
   var tiersEl = $("tiers");
   function focusTier() { var n = tiersEl.querySelector('.tier[data-i="' + tier + '"]'); if (n) n.focus(); }
   tiersEl.addEventListener("click", function (e) {
+    if (e.target.closest("a")) return;
     var a = e.target.closest(".tier");
     if (a) { tier = Number(a.dataset.i); render(); }
   });
   tiersEl.addEventListener("keydown", function (e) {
     var a = e.target.closest(".tier");
+    if (e.target.closest("a")) return;
     if ((e.key === "Enter" || e.key === " ") && a) { e.preventDefault(); tier = Number(a.dataset.i); render(); focusTier(); }
     else if (e.key === "ArrowRight" || e.key === "ArrowDown") { e.preventDefault(); tier = Math.min(2, tier + 1); render(); focusTier(); }
     else if (e.key === "ArrowLeft" || e.key === "ArrowUp") { e.preventDefault(); tier = Math.max(0, tier - 1); render(); focusTier(); }
